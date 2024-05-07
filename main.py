@@ -7,15 +7,15 @@ from langchain.vectorstores import Pinecone
 from langchain.llms import OpenAI
 import streamlit as st
 
-directory = 'C:/Users/HP/Documents/May2024/MoTA/Docs'
+directory = 'Docs/'
 
-def load_docs(directory):
-  loader = DirectoryLoader(directory)
-  documents = loader.load()
-  return documents
+def read_doc(directory):
+    file_loader=PyPDFDirectoryLoader(directory)
+    documents=file_loader.load()
+    return documents
 
-documents = load_docs(directory)
-len(documents)
+doc=read_doc(directory)
+len(doc)
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 def chunk_data(data, chunk_size=500):

@@ -1,7 +1,7 @@
 from langchain.embeddings.openai import OpenAIEmbeddings
 import os
 from pinecone import ServerlessSpec
-import os
+#from main import *
 from pinecone import Pinecone
 import streamlit as st
 import warnings
@@ -22,12 +22,19 @@ index_name = 'mota1'
 # get openai api key from platform.openai.com
 OPENAI_API_KEY =  os.environ.get('OPENAI_API_KEY')
 
-model_name = 'text-embedding-3-small '
+model_name = 'text-embedding-ada-002'
 
 embed = OpenAIEmbeddings(
     model=model_name,
     openai_api_key=OPENAI_API_KEY
 )
+
+#query = "who was Benito Mussolini?"
+
+# vector_store.similarity_search(
+#     query,  # our search query
+#     k=3  # return 3 most relevant docs
+# )
 
 from langchain.vectorstores import Pinecone
 
@@ -39,36 +46,56 @@ index = pc.Index(index_name)
 vectorstore = Pinecone(
     index, embed.embed_query, text_field
 )
-
+query="Give the key points of TwelfthFiveYearPlan2012-17"
 #query = "who is Arvind Kejriwal?"
 
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 
 # completion llm
-# llm = ChatOpenAI(
-#     openai_api_key=OPENAI_API_KEY,
-#     model_name='gpt-3.5-turbo',
-#     temperature=0.0
-# )
-llm = OpenAI()
-# qa = RetrievalQA.from_chain_type(
-#     llm=llm,
-#     chain_type="stuff",
-#     retriever=vectorstore.as_retriever()
-# )
-
-# qa.run(query)
+llm = ChatOpenAI(
+    openai_api_key=OPENAI_API_KEY,
+    model_name='gpt-3.5-turbo',
+    temperature=0.0
+)
 
 from langchain.chains import RetrievalQAWithSourcesChain
-query = "Summarise yourself"
+
 qa_with_sources = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
     chain_type="stuff",
     retriever=vectorstore.as_retriever()
 )
+query="Give the key points of TwelfthFiveYearPlan2012-17"
 qa_with_sources(query)
 
+# # Sidebar contents
+# with st.sidebar:
+#     st.title('💬 LLM Chat App on MoTA Twelfth Five Year Plan(2012–2017) Social Sectors...')
+#     st.markdown('''
+#     ## About
+#     This GPT helps in answering questions related to annual reports of MEITY from year 2017 to 2023
+
+
+
+#     [Documents Repository](https://drive.google.com/drive/folders/12CviwBib5xdWy3pW5trrOJxPbZFht2cn?usp=sharing)
+ 
+#     ''')
+#     #add_vertical_space(5)
+#     st.write('Made by LBSNAA for learning purpose](https://www.lbsnaa.gov.in/)')
+
+# def main():
+#     #st.title("Question and Answering App powered by LLM and Pinecone")
+
+#     text_input = st.text_input("Ask your query...") 
+#     if st.button("Ask Query"):
+#         if len(text_input)>0:
+#             #st.info("Your Query: " + text_input)
+#             answer = qa_with_sources(text_input)
+#             st.success(answer)
+
+# if __name__ == "__main__":
+#     main()
 # from langchain.chat_models import ChatOpenAI
 # from langchain.chains.question_answering import load_qa_chain
 # llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
