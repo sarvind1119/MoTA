@@ -104,7 +104,7 @@ def main():
             #st.info("Your Query: " + text_input)
             answer = qa_with_sources(text_input)
             st.success(answer)
-            answer = ask_and_get_answer(text_input)
+            answer = ask_and_get_answer(vectorstore,text_input)
             st.success(answer)
 
 if __name__ == "__main__":
