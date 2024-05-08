@@ -51,7 +51,18 @@ query="Give the key points of TwelfthFiveYearPlan2012-17"
 
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
+def ask_and_get_answer(vector_store, q, k=3):
+    from langchain.chains import RetrievalQA
+    from langchain_openai import ChatOpenAI
 
+    llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0)
+
+    retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k': k})
+
+    chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+
+    answer = chain.invoke(q)
+    return answer
 # completion llm
 llm = ChatOpenAI(
     openai_api_key=OPENAI_API_KEY,
@@ -92,6 +103,8 @@ def main():
         if len(text_input)>0:
             #st.info("Your Query: " + text_input)
             answer = qa_with_sources(text_input)
+            st.success(answer)
+            answer = ask_and_get_answer(text_input)
             st.success(answer)
 
 if __name__ == "__main__":
