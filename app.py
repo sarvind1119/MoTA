@@ -62,9 +62,12 @@ def ask_and_get_answer(vector_store, q, k=3):
     print(answer['result'])
 
     # Print reference information.
-    print(answer['Reference:\n'])
-    for doc in answer["source_documents"]:
-        raw_dict = doc.metadata
+    print('Reference:\n')
+    # for doc in answer["source_documents"]:
+    #     raw_dict = doc.metadata
+    #     print("Page number:", raw_dict['page'], "Filename:", raw_dict['source'])
+    for x in range(len(response["source_documents"][0].metadata)):
+        raw_dict = answer["source_documents"][x].metadata
         print("Page number:", raw_dict['page'], "Filename:", raw_dict['source'])
 
     # If needed, return the answer object.
