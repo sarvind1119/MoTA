@@ -59,7 +59,7 @@ def ask_and_get_answer(vector_store, q, k=3):
 
     retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
-    chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+    chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever,return_source_documents=True)
 
     answer = chain.invoke(q)
     return answer
