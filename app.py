@@ -66,7 +66,7 @@ def ask_and_get_answer(vector_store, q, k=3):
     for x in range(len(answer["source_documents"][0].metadata)):
         raw_dict = answer["source_documents"][x].metadata
         print("Page number:", raw_dict['page'], "Filename:", raw_dict['source'])
-    return answer
+    #return answer
 # completion llm
 llm = ChatOpenAI(
     openai_api_key=OPENAI_API_KEY,
