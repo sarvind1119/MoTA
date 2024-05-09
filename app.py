@@ -60,13 +60,7 @@ def ask_and_get_answer(vector_store, q, k=3):
     chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever,return_source_documents=True)
 
     answer = chain.invoke(q)
-    answer = ask_and_get_answer(vectorstore_from_docs, q)
-    print(answer['result'])
-    print('Reference:\n')
-    for x in range(len(answer["source_documents"][0].metadata)):
-        raw_dict = answer["source_documents"][x].metadata
-        print("Page number:", raw_dict['page'], "Filename:", raw_dict['source'])
-    #return answer
+    return answer
 # completion llm
 llm = ChatOpenAI(
     openai_api_key=OPENAI_API_KEY,
@@ -109,7 +103,8 @@ def main():
             #answer = qa_with_sources(text_input)
             #st.success(answer)
             answer = ask_and_get_answer(vectorstore,text_input)
-            st.success(answer)
+            st.success(answer['result'])
+            st.success(answer['Reference:\n'])
 
 if __name__ == "__main__":
     main()
