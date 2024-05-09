@@ -60,7 +60,7 @@ def ask_and_get_answer(vector_store, q, k=3):
     chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever,return_source_documents=True)
 
     answer = chain.invoke(q)
-    return answer['result'],answer['Reference:\n']
+    return answer['result'],answer['Reference']
     #return answer
 
 # completion llm
