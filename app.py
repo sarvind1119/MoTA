@@ -60,7 +60,9 @@ def ask_and_get_answer(vector_store, q, k=3):
     chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever,return_source_documents=True)
 
     answer = chain.invoke(q)
-    return answer
+    retunr answer['result'],answer['Reference:\n']
+    #return answer
+
 # completion llm
 llm = ChatOpenAI(
     openai_api_key=OPENAI_API_KEY,
@@ -103,8 +105,9 @@ def main():
             #answer = qa_with_sources(text_input)
             #st.success(answer)
             answer = ask_and_get_answer(vectorstore,text_input)
-            st.success(answer['result'])
-            st.success(answer['Reference:\n'])
+            st.success(answer)
+            #st.success(answer['result'])
+            #st.success(answer['Reference:\n'])
 
 if __name__ == "__main__":
     main()
