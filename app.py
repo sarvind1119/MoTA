@@ -46,56 +46,29 @@ def ask_and_get_answer(vector_store, q, k=3):
     from langchain.chains import RetrievalQA
     from langchain_openai import ChatOpenAI
 
-    # Initialize the language model with specified parameters.
-    llm = ChatOpenAI(model='GPT-3.5', temperature=0)
+    # Initialize the language model with the specified parameters.
+    llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0)
 
-    # Set up the retriever using the provided vector store and search parameters.
+    # Set up the retriever with the given vector store and search parameters.
     retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k': k})
 
-    # Create a retrieval-based QA chain that provides source documents along with answers.
+    # Create a retrieval-based QA chain that returns the source documents along with the answers.
     chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents=True)
 
-    # Execute the chain with the given question and obtain the response.
+    # Invoke the chain with the provided question and get the response.
     answer = chain.invoke(q)
 
-    # Display the response result.
+    # Print the result from the answer.
     print(answer['result'])
 
-    # Display reference information.
-    print('Reference:\n')
+    # Print reference information.
+    print(answer['Reference:\n'])
     for doc in answer["source_documents"]:
         raw_dict = doc.metadata
         print("Page number:", raw_dict['page'], "Filename:", raw_dict['source'])
 
-    # Optionally, return the answer object.
+    # If needed, return the answer object.
     return answer
-# def ask_and_get_answer(vector_store, q, k=3):
-#     from langchain.chains import RetrievalQA
-#     from langchain_openai import ChatOpenAI
-
-#     # Initialize the language model with the specified parameters.
-#     llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0)
-
-#     # Set up the retriever with the given vector store and search parameters.
-#     retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k': k})
-
-#     # Create a retrieval-based QA chain that returns the source documents along with the answers.
-#     chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents=True)
-
-#     # Invoke the chain with the provided question and get the response.
-#     answer = chain.invoke(q)
-
-#     # Print the result from the answer.
-#     print(answer['result'])
-
-#     # Print reference information.
-#     print('Reference:\n')
-#     for doc in answer["source_documents"]:
-#         raw_dict = doc.metadata
-#         print("Page number:", raw_dict['page'], "Filename:", raw_dict['source'])
-
-#     # If needed, return the answer object.
-#     return answer
 
 # completion llm
 llm = ChatOpenAI(
