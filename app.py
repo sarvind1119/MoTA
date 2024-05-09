@@ -29,8 +29,6 @@ embed = OpenAIEmbeddings(
     openai_api_key=OPENAI_API_KEY
 )
 
-#query = "who was Benito Mussolini?"
-
 # vector_store.similarity_search(
 #     query,  # our search query
 #     k=3  # return 3 most relevant docs
@@ -62,6 +60,12 @@ def ask_and_get_answer(vector_store, q, k=3):
     chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever,return_source_documents=True)
 
     answer = chain.invoke(q)
+    answer = ask_and_get_answer(vectorstore_from_docs, q)
+    print(answer['result'])
+    print('Reference:\n')
+    for x in range(len(answer["source_documents"][0].metadata)):
+        raw_dict = answer["source_documents"][x].metadata
+        print("Page number:", raw_dict['page'], "Filename:", raw_dict['source'])
     return answer
 # completion llm
 llm = ChatOpenAI(
