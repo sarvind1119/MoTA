@@ -114,19 +114,52 @@ with st.sidebar:
     #add_vertical_space(5)
     st.write('Made by LBSNAA for learning purpose](https://www.lbsnaa.gov.in/)')
 
+# def main():
+#     #st.title("Question and Answering App powered by LLM and Pinecone")
+
+#     text_input = st.text_input("Ask your query...") 
+#     if st.button("Ask Query"):
+#         if len(text_input)>0:
+#             #st.info("Your Query: " + text_input)
+#             #answer = qa_with_sources(text_input)
+#             #st.success(answer)
+#             answer = ask_and_get_answer(vectorstore,text_input)
+#             st.success(answer)
+#             #st.success(answer['result'])
+#             #st.success(answer['Reference:\n'])
+
+# if __name__ == "__main__":
+#     main()
+#import streamlit as st
+#from your_module import ask_and_get_answer, vectorstore  # Assuming 'vectorstore' is initialized in 'your_module.py'
+
+def display_answer(answer):
+    st.write("### Query")
+    st.write(answer['query'])
+
+    st.write("### Result")
+    result = answer['result'].replace('\n', '  \n')  # Ensuring markdown line breaks
+    st.markdown(result)
+
+    if "source_documents" in answer:
+        st.write("### Reference Documents")
+        for i, doc in enumerate(answer["source_documents"], start=1):
+            st.write(f"#### Document {i}")
+            st.write(f"**Page number:** {doc.metadata['page']}")
+            st.write(f"**Source file:** {doc.metadata['source']}")
+            content = doc.page_content.replace('\n', '  \n')  # Ensuring markdown line breaks
+            st.markdown(content)
+
 def main():
-    #st.title("Question and Answering App powered by LLM and Pinecone")
-
+    st.title("Question and Answering App powered by LLM and Pinecone")
     text_input = st.text_input("Ask your query...") 
-    if st.button("Ask Query"):
-        if len(text_input)>0:
-            #st.info("Your Query: " + text_input)
-            #answer = qa_with_sources(text_input)
-            #st.success(answer)
-            answer = ask_and_get_answer(vectorstore,text_input)
-            st.success(answer)
-            #st.success(answer['result'])
-            #st.success(answer['Reference:\n'])
 
+    if st.button("Ask Query"):
+        if len(text_input) > 0:
+            answer = ask_and_get_answer(vectorstore, text_input)
+            display_answer(answer)
+
+# The main function call
 if __name__ == "__main__":
     main()
+
