@@ -74,7 +74,7 @@ def ask_and_get_answer(vector_store, q, k=3):
     print(answer['result'])
 
     # Print reference information.
-    print('Reference:')
+    print('Reference:\n')
     for doc in answer["source_documents"]:
         raw_dict = doc.metadata
         print("Page number:", raw_dict['page'], "Filename:", raw_dict['source'])
