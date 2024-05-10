@@ -92,7 +92,7 @@ query="Give the key points of TwelfthFiveYearPlan2012-17"
 
 # Sidebar contents
 with st.sidebar:
-    st.title('💬 LLM Chat App on MoTA Twelfth Five Year Plan(2012–2017) Social Sectors...')
+    st.title('💬 LLM Chat App on Ministry of Tribal Affairs documents...')
     st.markdown('''
     ## About
     This GPT helps in answering questions related to document of Ministry of Tribal Affairs
