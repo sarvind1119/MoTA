@@ -95,11 +95,11 @@ with st.sidebar:
     st.title('💬 LLM Chat App on MoTA Twelfth Five Year Plan(2012–2017) Social Sectors...')
     st.markdown('''
     ## About
-    This GPT helps in answering questions related to annual reports of MEITY from year 2017 to 2023
+    This GPT helps in answering questions related to document of Ministry of Tribal Affairs
 
 
 
-    [Documents Repository](https://drive.google.com/file/d/1FKRqgTYPW5BdjTGiLbSyvFbNNshMXiB3/view?usp=drive_link)
+    [Documents Repository](https://drive.google.com/drive/folders/1Xq4-oZR43Fp4rSKBnVLXqJpP4BXD7Wzf?usp=drive_link)
  
     ''')
     #add_vertical_space(5)
