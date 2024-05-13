@@ -92,14 +92,14 @@ query="Give the key points of TwelfthFiveYearPlan2012-17"
 
 # Sidebar contents
 with st.sidebar:
-    st.title('💬 LLM Chat App on Ministry of Tribal Affairs documents...')
+    st.title('💬 LLM Chat App on Rural Development documents...')
     st.markdown('''
     ## About
-    This GPT helps in answering questions related to document of Ministry of Tribal Affairs
+    This GPT helps in answering questions related to Rural Development activities and affairs
 
 
 
-    [Documents Repository](https://drive.google.com/drive/folders/1Xq4-oZR43Fp4rSKBnVLXqJpP4BXD7Wzf?usp=drive_link)
+    [Documents Repository](https://drive.google.com/drive/folders/1-2YTEfBsUlRm3FADy2EhRhe3Iet1ngUG)
  
     ''')
     #add_vertical_space(5)
